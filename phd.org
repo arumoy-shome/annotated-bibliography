@@ -1,0 +1,1451 @@
+#+title: Phd
+#+category: phd
+#+tags: paper note project event
+#+tags: [ paper : test survey general viz model data ]
+#+tags: [ test : fair ]
+#+tags: [ note : wiki meeting journal people idea ]
+#+tags: [ note : intro related exp results discuss threats conclude ]
+
+* TODO zeiler2014visualizing
+This is a very nice paper, which I believe kicked-off the trend of
+visual analytics in Deep Learning? I have seen the visualisations
+shown in the paper before (probably during the DL course I took during
+Msc).
+
+The visualisation techniques shown inspect the feature maps inside the
+model. I think this helps be align my work to the visualisations used
+before and after the model is trained. This is also in-line with our
+narrative of making decisions at a more holistic level, looking at the
+entire ML pipeline.
+
+#+begin_src bibtex
+  @InBook{          zeiler2014visualizing,
+    title         = {Visualizing and Understanding Convolutional Networks},
+    isbn          = {9783319105901},
+    issn          = {1611-3349},
+    url           = {http://dx.doi.org/10.1007/978-3-319-10590-1_53},
+    doi           = {10.1007/978-3-319-10590-1_53},
+    booktitle     = {Lecture Notes in Computer Science},
+    publisher     = {Springer International Publishing},
+    author        = {Zeiler, Matthew D. and Fergus, Rob},
+    year          = {2014},
+    pages         = {818–833}
+  }
+#+end_src
+* riccio2020testing :test:
+
+#+begin_src bibtex
+@Article{         riccio2020testing,
+  title         = {Testing machine learning based systems: a systematic
+                  mapping},
+  volume        = {25},
+  issn          = {1573-7616},
+  url           = {http://dx.doi.org/10.1007/s10664-020-09881-0},
+  doi           = {10.1007/s10664-020-09881-0},
+  number        = {6},
+  journal       = {Empirical Software Engineering},
+  publisher     = {Springer Science and Business Media LLC},
+  author        = {Riccio, Vincenzo and Jahangirova, Gunel and Stocco, Andrea
+                  and Humbatova, Nargiz and Weiss, Michael and Tonella,
+                  Paolo},
+  year          = {2020},
+  month         = sep,
+  pages         = {5193–5254}
+}
+#+end_src
+* DONE barocas2019fairness :book:test:fair:
+:PROPERTIES:
+:CUSTOM_ID: barocas
+:ARCHIVE_TIME: 2023-02-27 Mon 15:11
+:ARCHIVE_FILE: ~/org/phd.org
+:ARCHIVE_OLPATH: Papers
+:ARCHIVE_CATEGORY: phd
+:ARCHIVE_ITAGS: paper
+:END:
+
+I glanced through this book & found the definition of fairness
+(mathematical standpoint) approachable. [[https://fairmlbook.org/][The website]] also contains
+links to several external resources such as the video tutorial on
+Youtube.
+
+#+begin_src bibtex
+@book{barocas-hardt-narayanan,
+  title = {Fairness and Machine Learning},
+  author = {Solon Barocas and Moritz Hardt and Arvind Narayanan},
+  publisher = {fairmlbook.org},
+  note = {\url{http://www.fairmlbook.org}},
+  year = {2019}
+}
+#+end_src
+
+* DONE [#A] chen2022fairness       :test:fair:survey:
+:PROPERTIES:
+:CUSTOM_ID: chen2022fairness
+:ARCHIVE_TIME: 2023-02-27 Mon 15:11
+:ARCHIVE_FILE: ~/org/phd.org
+:ARCHIVE_OLPATH: Papers
+:ARCHIVE_CATEGORY: phd
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: paper
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2022-09-19 Mon 14:14]
+:END:
+
++ problem statement :: Although there is growing awareness within the
+  research community to test for fairness in ML systems, there are
+  several challenges in doing so. The first problem is that we do not
+  know how to define fairness. Besides this, there are also several
+  fairness metrics, all of which cannot be satisfied simultaneously.
+  Fairness in ML is a multi-facet problem, which requires domain
+  expertise and a diverse point-of-views.
++ solution :: Authors survey 113 papers that address fairness testing
+  in ML systems. The results are categoried into two groups: 1. *how* to
+  test for fairness & 2. *where* to test for fairness.
+
+  Author provide a formal definition of fairness testing in ML from a
+  SE perspective. Authors provide a definition for fairness bugs &
+  fairness testing, how to test, where to test, a comparision of
+  fairness vs. traditional testing & position fairness testing within
+  the entire SDLC.
++ results :: Authors define a fairness bug as a disagreement between
+  the existing & agreed upon fairness requirements. While fairness
+  testing is any activity that reveals a fairness bug in the ML
+  system.
+
+  Fig 3 provides overview of fairness testing workflow. Once fairness
+  requirements are determined using requirements engineering, test
+  inputs are generated & test oracles are identified. The system is
+  put under test & a test report is generated which guides bug fixes.
+  The adequacy of the tests is validated to ensure high coverage. And
+  the system is re-tested to validate if the fix worked.
+
+  Authors identify 3 components which should be tested for
+  fairness: 1. testing the ML algorithms considering all
+  pre-processing steps involved 2. testing the dataset for label,
+  features & selection bias and 3. testing the framework used to
+  develop the models.
+
+  *ML vs. traditional software testing.* There are various differences
+  when it comes to testing in ML vs. traditional software systems.
+  While only the code is tested in traditional software systems, the
+  algorithm, data & frameworks must be tested in ML systems. The test
+  inputs vary based on what we are testing, ie. test inputs are
+  derived from the data when testing various ML models while we tend
+  to feed the same data through various models when testing the data.
+  Identifying fairness test oracles is a challenge since there is no
+  concrete definition of what fair is. We need to validate the ground
+  truth labels in the training set manually which requires domain
+  expertise. Currently metamorphic testing & statistical tests are
+  used to generate oracles. Traditional software testing has several
+  test adequacy metrics and recently test adequacy metrics for DL
+  systems have also been proposed. However we do not have fairness
+  test adequacy metrics. Finally, testing for fairness requires
+  diverse perspectives. This means that testing involves not only
+  data-scientists but also domain experts.
+
+  Fig 4 positions fairness testing within the SDLC. Fairness must be
+  considered as a property as early as possible which means testing
+  for fairness must be considered as a requirement. While fairness
+  testing influences all stages of the SDLC, it is particularly tested
+  twice: prior to deployment (offline) & after deployment (online).
+
+  *Overview of results*. Table 3 provides an overview of the fairness
+  testing results obtained through this survey. The paper is broardly
+  organised into 3 categories: fairness testing workflow, fairness
+  testing components & analysis and summary of results. Fairness
+  testing workflow is further categorised into test input generation &
+  test oracle identification. Topics under test input generation
+  include random , search-based, verification based & domain-specific
+  test input generation. Topics under oracle identification include
+  metamorphic relations and statistical measurements as test oracles.
+  Although identify 3 components for testing, they only found prior
+  work in two namely data & algorithm testing.
+
+  *Research trends.* Fairness has been approached by several research
+  communities. Most of the papers reviewed in this survey were
+  published in AI conferences (~50%) followed by SE conferences
+  (~30%). Most research focuses on DL vs. classical ML algorithms.
+  Authors suspect this is because DL is becoming more pervasive &
+  suffers more from lack of explainability compared to traditional ML
+  algorithms. Tabular data is the most popular data type (75% of
+  research from SE uses tabular data) followed by text & images.
+  Speech & videos are less studied. Group & individual fairness
+  metrics are most studied, group being the most popular. Authors
+  suspect this is because in the US group fairness must be included in
+  the SE process by law. Group fairness is also easy to understand &
+  thus implement by software testers. Since fairness issues are
+  typically identified in socio-technical systems, we do not have
+  access to the underlying ML algorithm or data due to concerns for
+  privacy & security. Thus most of the research focuses on black-box
+  testing (~70%).
+
+  *Research opportunities.* Authors identify several research
+  opportunities in this domain. We may not know the sensitive
+  attributes in real-world datasets due to regulations such as GDPR or
+  users giving incorrect data in an attempt to preserve their privacy.
+  In such scenarios, inference models can be used to determine
+  sensitive attributes such as age, sex, race followed by fairness
+  testing. Existing research focuses on 1 protected attribute however
+  fairness issues in real-world dataset may rise from 1 or more
+  protected attributes. For instance, current input generation
+  techniques only consider 1 protected attribute. Oracle
+  identification is also a challenge. Ground truth labels may have
+  bias & need to be validated manually which takes time & incures
+  financial & cognitive costs. Currently we use metamorphic relations
+  & statistical tests as fairness testing oracles however both require
+  human involvement. The challenge is that there are several
+  statistical tests, not all apply for a particular problem, not all
+  can be satisfied simultaneously. Existing test input generation do
+  not account for the magnitude of perturbation thus they do not check
+  if the generated input is natural/valid. There is also a need for
+  exploring more input generation techniques. Authors found only 1
+  paper which explores symbolic execution for input generation.
+  Search-based software test generation fit nicely given ML systems
+  have a broad space of behaviour, however this has not been explored
+  that well. We do not have fairness test adequacy metrics yet.
+  Authors propose a qualitative analysis of traditional test adequacy
+  metrics (line coverage, branch coverage, etc.) and DL test adequacy
+  metrics (neuron coverage, etc.) applied to fairness testing. Testing
+  in ML is expensive since it may induce full training-testing cycles
+  which require time & compute power. Authors propose exploration of
+  test prioritisation, selection & minimisation in the context of
+  fairness testing. Finally, authors propose studying fairness along
+  with other properties such as robustness, privacy, security,
+  efficiency and interpretability. Specifically, since fairness &
+  interpretability (or explainability) go hand-in-hand, authors
+  propose this direction. Finally, authors feel there is a lack of
+  benchmarks for fairness testing.
++ limitations ::
++ remarks :: How do we define fairness bugs wrt different data types?
+  For instance, for images, we only have labels (no other protected
+  attributes). How do we determine automatically that the system
+  suffers from bias?
+
+  The paper provides intuitive explaintations for group & individual
+  fairness metrics (sec 2).
+
+  I have only considered & explored white-box fairness testing, could
+  be interesting to review some black-box fairness testing methods.
+
+#+begin_src bibtex
+  @Misc{            chen2023fairness,
+    title         = {Fairness Testing: A Comprehensive Survey and Analysis of
+		    Trends},
+    author        = {Zhenpeng Chen and Jie M. Zhang and Max Hort and Federica
+		    Sarro and Mark Harman},
+    year          = {2023},
+    eprint        = {2207.10223},
+    archiveprefix = {arXiv},
+    primaryclass  = {cs.SE}
+  }
+#+end_src
+
+* DONE [#A] biswas2021fair           :test:data:fair:
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2023-02-27 Mon 15:11
+  :ARCHIVE_FILE: ~/org/phd.org
+  :ARCHIVE_OLPATH: Papers
+  :ARCHIVE_CATEGORY: phd
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: paper
+  :END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2022-06-29 Wed 15:47]
+:END:
+
++ problem statement :: Typically, fairness in ML is tested at the
+  model level. However, ML requires a holistic view since the training
+  stage is preceeded by several data related stages.
+
+  Although prior work on detecting fairness related work exists, they
+  however focus on a single ML model.
++ solution :: Authors perform analysis of common data pre-processing
+  steps performed prior to training a ML model to quantify their
+  impact on the fairness of the model.
+
+  Authors use causal method of fairness for their evaluation.
+
+  Figure 2: methodology for computing fairness of a pre-processing
+  stage. The authors create an alternative pipeline where they remove
+  one of the pre-processing stages. They train both the pipelines &
+  gather the predictions which are then used to compute the fairness
+  of the pre-processing stage.
+
+  The replication package is available on [[https://github.com/sumonbis/FairPreprocessing][Github]].
++ results :: Authors analyse 37 real world ML pipelines (from kaggle
+  notebooks) which operate on 5 datasets.
+
+  They analyse data pre-processing steps such as standardisation,
+  feature selection, encoding, over/under sampling, etc.
+
+  They also consider fairness of individual pre-processing steps
+  (local fairness) vs. the entire pipeline (global fairness).
+
+  Following are the key discoveries reported:
+  + Dropping/imputation of missing values introduce bias & hence
+    affect fairness of the model.
+  + Feature generation can impact fairness.
+  + Protected attributes may be related with other "fair" features
+    thus indirectly affecting the model's fairness.
+  + Encoding categorical features should be based on the classifier.
+    Labelencoding can expose an unwanted linear relationship between
+    the protected attribute & target
+  + Under or over sampling leads to fairness issues. Typically k-best
+    selection is unfair however selectfpr is more fair since it takes
+    the false positive rate into account (and most fairness metrics
+    are based on that)
+  + Presence of outliers can make standardisation and non-linear
+    transformations unfair. The use of specific classifiers also has
+    an effect on this.
++ limitations :: The titanic dataset was used in the evaluation. Can
+  this really be considered a good dataset for evaluating fairness?
+  Its primarily used as a toy dataset in teaching purposes since it
+  contains some peculiarities from a data mining perspective.
++ remarks :: Check the backlinks for this paper for relevant work on
+  fairness testing in ML. The background on fairness should be read in
+  full.
+
+  The feature generation point is interesting. Can we device a testing
+  for common feature transformations?
+
+  Reading up on bias mitigation techniques can come in handy.
+
+#+begin_src bibtex
+  @inproceedings{biswas2021fair,
+    title =	 {Fair preprocessing: towards understanding
+		    compositional fairness of data transformers in
+		    machine learning pipeline},
+    author =	 {Biswas, Sumon and Rajan, Hridesh},
+    booktitle =	 {Proceedings of the 29th ACM Joint Meeting on
+		    European Software Engineering Conference and
+		    Symposium on the Foundations of Software
+		    Engineering},
+    pages =	 {981--993},
+    year =	 2021
+  }
+#+end_src
+
+* DONE [#A] biswas2020machine             :test:fair:
+:PROPERTIES:
+:CUSTOM_ID: biswas2020machine
+:ARCHIVE_TIME: 2023-02-27 Mon 15:11
+:ARCHIVE_FILE: ~/org/phd.org
+:ARCHIVE_OLPATH: Papers
+:ARCHIVE_CATEGORY: phd
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: paper
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2023-01-22 Sun 17:29]
+:END:
+
++ problem statement :: Several migitation techniques, testing
+  techniques & tools exist to deal with bias in ML models. However it
+  is unclear if models in practise exhibit bias. And if so, what is
+  the most pre-dominant type of bias?
++ solution :: Authors analyse ML models in practise and create a
+  catalogue of biases that exist. The work presents a link between
+  bias and ML models, mitigation techniques & fairness metrics.
+
+  [[https://github.com/sumonbis/ML-Fairness][Replication package]] is available on Github.
+
++ results :: The key discovery is that current model optimisation
+  techniques priorities on performance as a result of which fairness
+  is neglected. Authors discover few model constructs that are linked
+  with unfair behaviour. And finally, effective data-preprocessing
+  steps are necessary to address fairness issues.
++ limitations ::
++ remarks :: Also a good paper to find existing work in ML fairness.
+
+#+begin_src bibtex
+  @inproceedings{biswas2020machine,
+    title =	 {Do the machine learning models on a crowd sourced
+		    platform exhibit bias? an empirical study on model
+		    fairness},
+    author =	 {Biswas, Sumon and Rajan, Hridesh},
+    booktitle =	 {Proceedings of the 28th ACM joint meeting on
+		    European software engineering conference and
+		    symposium on the foundations of software
+		    engineering},
+    pages =	 {642--653},
+    year =	 2020
+  }
+#+end_src
+
+* DONE [#A] zhang2021ignorance            :test:fair:
+:PROPERTIES:
+:CUSTOM_ID: zhang2021ignorance
+:ARCHIVE_TIME: 2023-02-27 Mon 15:11
+:ARCHIVE_FILE: ~/org/phd.org
+:ARCHIVE_OLPATH: Papers
+:ARCHIVE_CATEGORY: phd
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: paper
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2022-09-14 Wed 14:58]
+:END:
+
++ problem statement :: ML is being used for critical decisions: the
+  assess the credibility for loans, to evaluate an employee's
+  performance and for medical treatments. However the training data
+  used may be subject to a human's cognitive bias or prejudice. As a
+  result of which, the ML model may inherit discriminatory behaviour.
+  And usage of such models in the real-world may lead to financial or
+  criminal charges against companies using such models.
++ solution :: Authors conduct a large scale survey of ML fairness and
+  ML dataset size. In the case of humans, we see a direct link between
+  the level of knowledge in a being with the prejudice they hold.
+  Typically, they tend to be inversely proportional ie. a human with
+  more knowledge of the world tends to exhibit less prejudice against
+  individuals belonging to certain gender, race or color. The authors
+  of the paper wish to validate if the same holds true in the case of
+  ML models. Does feeding more training data result in a less biased
+  model?
+
+  Authors use the AIF360 library which includes the datasets (table
+  1), fairness metrics & bias mitigation techniques used in the paper.
+  The authors use 4 group fairness metrics: =statistical parity
+  difference=, =average absolute odds difference=, =equal opportunity
+  difference=, =disparate impact=. Authors normalise =disparate
+  impact= between $[0, 1]$ such that higher values in all metrics
+  indicate higher bias.
+
+  Authors use two bias mitigation techniques: reweighting
+  (pre-processing) & prejudice remover (in-processing).
+
+  Authors use 4 models: decision tree, logistic regression, random
+  forest & adaboost. Data is split into 80-20 favouring training data.
+
+  To test the effect of feature size, authors increase the number of
+  features by 1 with a minimum of 3 features in the initial set. To
+  test the effect of training size, authors increase the size in
+  increments (10%, 25%, etc.) until full training set used.
+
+  Authors repeat each run 50 times & use statistical methods such as
+  ANOVA, f-statistics, p-value & tukeyHSD to validate that their
+  results are statistically significant.
+
++ results :: Authors find that increasing the number of features in
+  the training dataset had a positive result in fairness (fig 1).
+  
+  However, contrary to intuition, increasing the size of the dataset
+  had a negative influence on fairness in 28% of their experiments
+  (fig 2). Authors further investigate the fairness metrics for the
+  dataset & observe that the model fairness metrics approach the data
+  fairness metrics as size of training data increases. Since
+  increasing training data is common in ML to improve the accuracy of
+  the model, authors investigate two strategies of bias mitigation: 1.
+  equal number of examples for privileged & unprivileged groups and 2.
+  bias mitigation techniques. They find that bias mitigation
+  techniques work better to address fairness issues in the model.
+
+  Authors observe the largest bias when the number of features is low
+  & the size of the training data is high. The smallest bias is
+  observed when the number of features is high & the size of the data
+  is low. When the number of features is low & the size of dataset is
+  increased, the bias in the model increases steeply (fig 3).
+
+  Feature & dataset size are two parameters related to fairness, that
+  generalise across datasets of different domains.
++ limitations :: By normalising =disparate impact= you can't tell
+  which group (privileged or unprivileged) the model is biased
+  towards?
+
++ remarks :: Another good paper to find existing work on ML fairness.
+  The theory on ML fairness was easy to read & follow along in this
+  paper.
+
+  Can we apply similar analysis technique to deep learning models? We
+  typically do not engineer features, instead rely on a larger
+  training set?
+
+  Nice insight that being data-centric helps in ML fairness. Instead
+  of increasing the training data size, emphasis must be put on
+  engineering richer features.
+
+  All conclusions derived are well reasoned scientifically sound. The
+  experiments are well designed & the narrative is well written. I
+  learned a lot about experimental design in my field from this paper.
+
+#+begin_src bibtex
+  @inproceedings{zhang2021ignorance,
+    title =	 {" Ignorance and Prejudice" in Software Fairness},
+    author =	 {Zhang, Jie M and Harman, Mark},
+    booktitle =	 {2021 IEEE/ACM 43rd International Conference on
+		    Software Engineering (ICSE)},
+    pages =	 {1436--1447},
+    year =	 2021,
+    organization = {IEEE}
+  }
+#+end_src
+
+* DONE [#A] mehrabi2021survey :test:fair:
+:PROPERTIES:
+:CUSTOM_ID: mehrabi2021survey
+:ARCHIVE_TIME: 2023-02-27 Mon 15:11
+:ARCHIVE_FILE: ~/org/phd.org
+:ARCHIVE_OLPATH: Papers
+:ARCHIVE_CATEGORY: phd
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: paper
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2022-07-05 Tue 15:01]
+:END:
+
++ problem statement :: ML is being utilised in various decision making
+  processes. Some low stake such as dating & movie recommendation. But
+  others are high stake & may impact human lives: autonomous driving,
+  eligibility of loans & hiring decisions.
+
+  Machines can perform a repetitive task without getting bored, and
+  they  do so while considering several factors/variables. However, we
+  see evidence of ML systems exhibiting discriminatory behaviour
+  towards certain groups of individuals (sex, race, age).
+
+  For instance, COMPAS is a pretrial decision & release decision
+  making software used by the american justice system. The software
+  has higher false positives for individuals of darker skin color.
+  There are other instances of bias in software such as jugding of
+  beauty pagents where individuals of darker skin color are less
+  likely to have a favourable score. And facial recognition software
+  in smartphones that falsely predict asians to be blinking.
++ solution :: Authors present a survey of fairness in ML literature.
+  The focus is put on fairness issues arising both from the data & the
+  model's internal algorithm.
++ results ::
++ limitations ::
++ remarks :: The paper presents a comprehensive survey on the
+  state-of-the-art research on fairness. It presents bias & fairness
+  rooted in the data & also in the ML algorithm (predictions are
+  biased even with unbiased data). Definitely consider reading and
+  using as reference if persuing the fairness angle.
+
+#+begin_src bibtex
+  @article{mehrabi2021survey,
+    title =	 {A survey on bias and fairness in machine learning},
+    author =	 {Mehrabi, Ninareh and Morstatter, Fred and Saxena,
+		    Nripsuta and Lerman, Kristina and Galstyan, Aram},
+    journal =	 {ACM Computing Surveys (CSUR)},
+    volume =	 54,
+    number =	 6,
+    pages =	 {1--35},
+    year =	 2021,
+    publisher =	 {ACM New York, NY, USA}
+  }
+#+end_src
+
+* DONE [#A] biessmann2021automated                               :test:data:
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2023-02-27 Mon 15:08
+  :ARCHIVE_FILE: ~/org/phd.org
+  :ARCHIVE_OLPATH: Papers
+  :ARCHIVE_CATEGORY: phd
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: paper
+  :END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2023-01-22 Sun 17:31]
+- State "DONE"       from "TODO"       [2022-02-09 Wed 17:04]
+:END:
+
++ problem statement ::
++ solution ::
++ results ::
++ limitations ::
++ remarks :: Interesting and well written paper, although I could not
+  relate to it from a SE perspective. It can still serve as a good
+  reference for future papers. Can use this paper to identify other
+  relevant papers as well.
+
+  #+begin_src bibtex
+    @article{biessmann2021automated,
+      title =	 {Automated Data Validation in Machine Learning
+		      Systems},
+      author =	 {Biessmann, Felix and Golebiowski, Jacek and Rukat,
+		      Tammo and Lange, Dustin and Schmidt, Philipp},
+      journal =	 {Bulletin of the IEEE Computer Society Technical
+		      Committee on Data Engineering.[Google Scholar]},
+      year =	 2021
+    }
+  #+end_src
+
+* DONE [#A] hynes2017data                                        :test:data:
+  :PROPERTIES:
+  :FORWARD_LINK: breck2019data
+  :ARCHIVE_TIME: 2023-02-27 Mon 15:07
+  :ARCHIVE_FILE: ~/org/phd.org
+  :ARCHIVE_OLPATH: Papers
+  :ARCHIVE_CATEGORY: phd
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: paper
+  :END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2021-09-17 Fri 16:07]
+:END:
+
++ problem statement :: Linters highlight aspects of code which do not
+  conform to best practices (either followed by the community or
+  specifically by the company or team). Data in ML systems is
+  analogous to code in traditional software and thus must be tested.
++ solution :: The paper presents a data linting tool which checks the
+  training set for potential faults/errors. Analysis is done at a
+  dataset and a feature-by-feature level in order to highlight
+  potential "bugs" in the data that may hinger the model's ability to
+  learn effectively. The analysis is conducted with the assumption
+  that DNNs are used as the learning algorithm.
+
+  The paper also presents empirical evidence of applying the linter to
+  600+ open source datasets from Kaggle (along with a few internal
+  datasets from Google).
+
+  Results indicate that such a tool is useful for new ML practitioners
+  and for educational purposes.
++ results ::
++ limitations ::
++ remarks :: The paper was published in a workshop, the quality is not
+  that highend. However, it does a good job in identifying some of the
+  preliminary "data smells" (this is good, less work for me!). It
+  however does not acknowledge the presence of domain specific data
+  smells.
+
+  #+begin_src bibtex
+  @inproceedings{hynes2017data,
+  title={The data linter: Lightweight, automated sanity checking for ml data sets},
+  author={Hynes, Nick and Sculley, D and Terry, Michael},
+  booktitle={NIPS MLSys Workshop},
+  year={2017}
+}
+  #+end_src
+
+* DONE [#A] breck2019data                                        :test:data:
+  :PROPERTIES:
+  :BACKWARD_LINK: hynes2017data
+  :ARCHIVE_TIME: 2023-02-27 Mon 15:08
+  :ARCHIVE_FILE: ~/org/phd.org
+  :ARCHIVE_OLPATH: Papers
+  :ARCHIVE_CATEGORY: phd
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: paper
+  :END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2022-02-09 Wed 18:06]
+:END:
+
++ problem statement :: Catching data errors are critical since ML
+  models trained using dirty data will lead to poor incorrect
+  predictions. This is a cause for concern since these models may be
+  deployed in production and their output may be used by other
+  services which will then also perform poorly. The output of the ML
+  models are often also used to capture new training data, thus
+  leading to a feedback loop which over time will degrade the model
+  performance. It is also important to catch data errors early on
+  since debugging ML systems are grounded on the assumption that the
+  dataset is "clean".
+
+  The problem of data validation and cleaning is not new (this is
+  highly relevant for data-driven fields such as database systems)
+  however some aspects need to be adapted for ML.
++ solution :: Authors rethink data validation techniques in the
+  context of ML systems. Evidence is provided via a case-study of a
+  data-related production outage in Google.
+
+  Authors present Tensorflow Data Validation (tfdv), a data validation
+  tool which is deployed as part of the TFX package for tensorflow and
+  is actively used by several users. The tool is used by several
+  product teams and has been field tested to process several Petabytes
+  of data per day.
++ results :: The tool borrows the tried and tested concept of data
+  schemas from database management systems and adapts it for ML
+  systems. Traditional statistical tests (such as chi-squared test)
+  was found to be uninformative for the scale at which ML systems
+  operate, thus an alternative to quantify changes between data
+  distributions is proposed.
+
+  In database systems, the schema always comes first and provides a
+  consistent structure for the collected data. However in ML, we may
+  have pre-existing datasets which can be used to ML models. This
+  here, the data may come first. Authors propose a mechanism for
+  inferring the schema from the dataset.
+
+  The tool performs unit tests using the schema. This allows for a
+  mechanism to specify what we expect the data to look when being fed
+  to a ML models. If these tests break then it indicates that either
+  the schema is stale and needs to be updated or the training code
+  needs to perform additional transformations before feeding it to the
+  model.
++ limitations ::
++ remarks :: The related work section makes some interesting
+  connections. I was familiar with the relevant work mentioned in the
+  back references.
+
+  #+begin_src bibtex
+    @inproceedings{breck2019data,
+      title =	 {Data Validation for Machine Learning.},
+      author =	 {Breck, Eric and Polyzotis, Neoklis and Roy, Sudip
+		      and Whang, Steven and Zinkevich, Martin},
+      booktitle =	 {MLSys},
+      year =	 2019
+    }
+  #+end_src
+
+* DONE [#A] sculley2015hidden                                      :general:
+   :PROPERTIES:
+   :ARCHIVE_TIME: 2023-02-27 Mon 15:07
+   :ARCHIVE_FILE: ~/org/phd.org
+   :ARCHIVE_OLPATH: Papers
+   :ARCHIVE_CATEGORY: phd
+   :ARCHIVE_TODO: DONE
+   :ARCHIVE_ITAGS: paper
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "1PASS"      [2021-06-22 Tue 15:17]
+   :END:
+
++ problem statement :: /Technical debt (TD)/ in software is analogous
+  to /fiscal debt/. Not all TD are bad, but they do tend to accumulate
+  when software development moves fast. It can be reduced by working
+  on improving code quality, test coverage, improving documentation
+  and such. The authors argue that although it is easy and quick to
+  get a MVP for a ML model up and running, such an approach also
+  incures heavy technical debt.
++ solution :: The paper wishes to spread awareness amongst community
+  members regarding TD in ML projects. No technical solutions
+  presented.
++ results :: The paper identifies 6 core areas from where technical
+  debt arises when working with ML systems. However, the core reason
+  according to the authors is that ML systems are hard to abstract and
+  encapsulate and these abstractions are even harder to maintain over
+  time.
+
+  The authors identify the following 6 problem areas where TD may
+  arise: 1. Data dependencies 2. feedback loops 3. ML system
+  anti-patterns 4. Configuration debt 5. Changes in external world
+  and 6. Other areas of ML debt.
+
+  Data and ML models are highly tangled to one another and cannot be
+  developed in isolation. Changing one, without updating the other may
+  lead to unforseeable side-effects. Under utilized data features
+  (perhaps from legacy code) must be pruned periodically and tools for
+  static/dynamic data dependency management are needed.
+
+  ML systems accumulate analysis debt as they start to influence
+  themselves in unpredictable ways as they are updated over time.
+  These feedback come in two variants: 1. Direct: the data determines
+  which model to pick and further refinement of the model requires
+  changes to the data. 2. Hidden: Two independent systems predicting
+  facets of the same product (like a webpage, for instance showing
+  related products and showing relevant reviews). Since the data for
+  the two models are interconnected, changes to one model may affect
+  the other.
+
+  ML systems have several anti-patterns such as excessive "glue code"
+  and data pipelines due to highly experimental nature of ML. This
+  also results in dead/reduntant data pipelines/code which must be
+  pruned. There is a lack of abstractions in ML code and other code
+  smells.
+
+  ML systems have a lot of variables: what is the initial state of the
+  model? Which features are used for training? How are the
+  hyper-parameters tuned? All this results in config. debt.
+
+  ML systems are not static since they are sensitive to changes in the
+  external world. Often there are fixed decision thresholds which
+  change due to "data drift". Live monitoring is essential to make
+  sure the model is periodically re-trained and keeps performing well
+  in production. For high churn data, this response needs to be
+  automatic!
+
+  Other sources of TD include lack of emphasis on data testing (data
+  to ML is what code is to traditional software), a diverse team and
+  culture, reproducibility of ML systems and management of several
+  models at scale.
+
++ limitations :: There is no metric that quantifies TD.
+  Moving fast results in accumulating of TD over time so it is
+  difficult to identify the problem early on.
++ remarks :: The paper does not provide any technical solutions to the
+  problems, but ends on an optimistic note and hopes that others will
+  address the problems identified. The TDs provided are quite high
+  level and hard to relate. Some concrete examples would have been
+  more meaningful.
+
+   #+begin_src bibtex
+       @article{sculley2015hidden,
+       title={Hidden technical debt in machine learning systems},
+       author={Sculley, David and Holt, Gary and Golovin, Daniel and Davydov, Eugene and Phillips, Todd and Ebner, Dietmar and Chaudhary, Vinay and Young, Michael and Crespo, Jean-Francois and Dennison, Dan},
+       journal={Advances in neural information processing systems},
+       volume={28},
+       pages={2503--2511},
+       year={2015}
+     }
+   #+end_src
+
+* DONE [#A] amershi2019software                                    :general:
+   :PROPERTIES:
+   :ARCHIVE_TIME: 2023-02-27 Mon 15:07
+   :ARCHIVE_FILE: ~/org/phd.org
+   :ARCHIVE_OLPATH: Papers
+   :ARCHIVE_CATEGORY: phd
+   :ARCHIVE_TODO: DONE
+   :ARCHIVE_ITAGS: paper
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "2PASS"      [2021-06-25 Fri 13:38]
+   :END:
+
+The "related papers" section on GS for this paper was very fuitful.
+
++ problem statement :: Paper presents a survey of teams in Microsoft
+  who develop customer facing AI products and services. The goal of
+  the study is to understand how they deal with challenges - both
+  day-to-day and large-scale infrastructural arising from scaling AI
+  components - while working with AI.
++ solution :: Authors hope that the results and discoveries from the
+  survey will help other SE teams working with AI.
+
+  The authors propose a process maturity metric to help engineers
+  evaluate their personal progress made building AI components.
+
+  Authors identify a 9 stage workflow which describes how Microsoft
+  employees build AI components. They also provide a set of best
+  practises when working with AI along with a discussion on how SE is
+  different when applied to AI/ML components vs. traditional software.
+
++ results :: Authors discover differences between AI and traditional
+  software in 3 core areas: 1. AI is highly coupled with data, and
+  managing said data is increasingly complex as the project grows. 2.
+  Building models that are customizable requires engineers versed in
+  SE *and* ML. 3. Building encapsulated models which do not tangle
+  with one another is difficult.
+
+  They also point out that there is entanglement between code and data
+  (as pointed out earlier in the form of direct/hidden feedback loops
+  by sculley2015hidden).
+
++ limitations :: Authors acknowledge that some aspects of the study
+  may be Microsoft specific but they hope the rest are still
+  generalizable to other companies and teams.
++ remarks :: I think the paper is a bit dated. For instance it
+  mentions that data versioning tools are lacking but I think as of
+  2021 these tools exist [barrak2021co].
+
+  Also got a sense of "shamless plug" about Microsoft and ML at
+  Microsoft and how awesome it is. The discussion section was a bit
+  vague and I found it difficult to relate to the problems the authors
+  pointed out.
+
+   #+begin_src bibtex
+     @inproceedings{amershi2019software,
+       doi =          {10.1109/icse-seip.2019.00042},
+       url =          {https://doi.org/10.1109/icse-seip.2019.00042},
+       year =         2019,
+       month =        may,
+       publisher =    {{IEEE}},
+       author =       {Saleema Amershi and Andrew Begel and Christian Bird
+                       and Robert DeLine and Harald Gall and Ece Kamar and
+                       Nachiappan Nagappan and Besmira Nushi and Thomas
+                       Zimmermann},
+       title =        {Software Engineering for Machine Learning: A Case
+                       Study},
+       booktitle =    {2019 {IEEE}/{ACM} 41st International Conference on
+                       Software Engineering: Software Engineering in
+                       Practice ({ICSE}-{SEIP})}
+     }
+   #+end_src
+
+* DONE [#A] sambasivan2021everyone                                    :data:
+   :PROPERTIES:
+   :ARCHIVE_TIME: 2023-02-27 Mon 15:07
+   :ARCHIVE_FILE: ~/org/phd.org
+   :ARCHIVE_OLPATH: Papers
+   :ARCHIVE_CATEGORY: phd
+   :ARCHIVE_TODO: DONE
+   :ARCHIVE_ITAGS: paper
+   :END:
+
+Contrary to the papers read so far, this one uses a different
+demographic (Asian countries) for the survey.
+
+ + problem statement :: Emphasis is put on novel model creation or
+   improving model performance. Data is usually ignored and considered
+   'operational'. However, data has a significant impact on the model
+   quality and should be emphasised more especially because AI is
+   being adopted into several high-stake domains such as society,
+   government and healthcare.
+ + solution :: The paper explores the challenges and practises in
+   "high-stakes AI" such as landslide detection, suicide prevention
+   and cancer detection.
+
+   A survey is conducted with 53 AI practitioners from India, US and
+   East and West African countries. The authors introduce the notion
+   of "data cascades". They define it as compounding, negative events
+   caused due to data issues that result in technical debt over time.
+   The study found that data cascades were highly prevalent amongst AI
+   practitioners.
+
+   The paper also contributes by raising awareness on the importance
+   of data and also touches upon HCI (which is a bit under-rated). The
+   authors believe that HCI has a crutial role to play in AI data
+   excellence.
+ + results :: Authors emphasize a need for moving from a
+   "goodness-of-model" to "goodness-of-data" paradigm. Currently ML
+   model are evaluated either with performance metrics or through live
+   monitoring. However, this form of evaluation is incomplete and
+   comes too late in the ML lifecycle. Authors argue that current
+   evalution metrics only tell us how well the model fits the data.
+   What we need are metrics which allow us to determine how well the
+   data represents the problem and expresses the phenomena.
+
+   The survey reveals that teams that employed frequent and early
+   feedback loops in the developmental cycle were more likely to
+   successfully finish the projects. Others who moved rapidly through
+   the model development cycle and neglected the data work, quickly
+   racked up technical debt and had to abandon the project.
+
+   Authors feel that the lack of emphasis on the data is due to a lack
+   of incentive in the community. Innovation in model development are
+   always featured in the main conference tracks while work showcasing
+   improvements working with data often take the back seat. The same
+   phenomenon is observed in education as well. Most courses put
+   emphasis on the model work. However, in the real world, majority of
+   the work revolves around data collection, curation and annotation
+   for which AI practitioners are unprepared.
+
+   Application of AI to real world problems (especially in high-stake
+   domains) require working with one or more domain experts. The
+   majority of the work is almost always in the data phase and the
+   main work begins once the model is in production and sees "live"
+   data.
+
+   Although AI practitioners adopted best practises for their source
+   code, they did not adopt a similar strategy for their data. A lack
+   of best practices for working with data was noticed. Specifically,
+   data documentation was neglected and the model was not frequently
+   exposed to data from production. Lack of tools for working with
+   data was also observed. For instance aspects of data annotation and
+   creation can be automated.
+
+   Finally, access to pre-trained models was available across the
+   globe. However, access to data and compute power varied drastically
+   between the East and the West. High stakes problems almost always
+   require custom data sets and innovation/tools are required to avoid
+   the "cold start" problem.
+ + limitations ::
+ + remarks :: The first paper to touch upon HCI, aligns with my
+   personal thoughts and observations in the field.
+
+#+begin_src bibtex
+  @InProceedings{   sambasivan2021everyone,
+    series        = {CHI '21},
+    title         = {``Everyone wants to do the model work, not the data
+		    work'': Data Cascades in High-Stakes AI},
+    url           = {http://dx.doi.org/10.1145/3411764.3445518},
+    doi           = {10.1145/3411764.3445518},
+    booktitle     = {Proceedings of the 2021 CHI Conference on Human Factors in
+		    Computing Systems},
+    publisher     = {ACM},
+    author        = {Sambasivan, Nithya and Kapania, Shivani and Highfill,
+		    Hannah and Akrong, Diana and Paritosh, Praveen and Aroyo,
+		    Lora M},
+    year          = {2021},
+    month         = may,
+    collection    = {CHI '21}
+  }
+#+end_src
+
+* DONE [#A] zhang2022machine                                   :test:survey:
+   :PROPERTIES:
+   :BACKWARD_LINK: cheng2018towards
+   :ARCHIVE_TIME: 2023-02-27 Mon 15:07
+   :ARCHIVE_FILE: ~/org/phd.org
+   :ARCHIVE_OLPATH: Papers
+   :ARCHIVE_CATEGORY: phd
+   :ARCHIVE_TODO: DONE
+   :ARCHIVE_ITAGS: paper
+   :END:
+:LOGBOOK:
+- State "DONE"       from              [2021-09-19 Sun 23:52]
+:END:
+
+ + problem statement :: Testing is a well established, almost a
+   requirement for developing software systems. However, testing ML
+   systems which are non-deterministic, is somewhat challening. With
+   AI being adopted in high stakes/risk areas, concerns are being
+   raised towards trust, fairness, robustness, privacy and security of
+   AI systems (DeepExplore and Themis are two ML testing software that
+   exist).
+
+ + solution :: The paper defines the concept of ML testing and reviews
+   144 papers that address this topic. The paper analyses the results
+   obtained from the review. The paper also identifies open challenges
+   in the field of ML testing.
+ + results :: Paper identifies a bias as majority of the reviewed
+   paper focus on supervised learning, very few touch upon
+   unsupervised and reinforcement learning. Preference is also given
+   to robustness and correctness while security, privacy, efficiency
+   and interpretability are ignored.
+
+   Authors consider several dimensions such as 1. type of ml task:
+   supervised, unsupervised or reinforcement learning, 2. type of ml
+   model: classical or deep and the 3. ml testing workflow: difference
+   between Machine learning development cycle (MLDC) & SDC, how often
+   we test ML, what we test, what is the test input and what is the
+   oracle.
+
+   Authors categorise ML testing into 4 broad categories: 1. testing
+   components, 2. testing workflows, 3. testing properties and 4.
+   specific application scenarios.
+
+   There are 3 distinct components to test in ML: data, framework &
+   learning program. I noticed that the paper does not comment on
+   identifying bugs in the data wrangling code.
+
+   There are 2 properties to test in ML: 1. functional properties:
+   correctness of model & model relevance (how well does the model fit
+   the data?) and 2. non-functional properties: robustness, security,
+   data privacy, efficiency, fairness & interpretability.
+
+   Robustness refers to the ability of the model to be correct under
+   the presence of perturbations (either in the data or in the
+   framework). How does data link into this?
+ + limitations ::
+ + remarks :: A great paper, providing a comprehensive overview of
+   existing solutions for ML testing (testing ML systems) along with
+   open challenges in the field.
+
+   Refer to fig. 2 for an overview of the paper.
+
+   I did not read the summary of the existing solutions. Need to come
+   back to this paper as and when required and read relevant parts.
+
+   #+begin_src bibtex
+     @Article{         zhang2022machine,
+       title         = {Machine Learning Testing: Survey, Landscapes and
+		       Horizons},
+       volume        = {48},
+       issn          = {2326-3881},
+       url           = {http://dx.doi.org/10.1109/TSE.2019.2962027},
+       doi           = {10.1109/tse.2019.2962027},
+       number        = {1},
+       journal       = {IEEE Transactions on Software Engineering},
+       publisher     = {Institute of Electrical and Electronics Engineers (IEEE)},
+       author        = {Zhang, Jie M. and Harman, Mark and Ma, Lei and Liu, Yang},
+       year          = {2022},
+       month         = jan,
+       pages         = {1–36}
+     }
+   #+end_src
+
+* TODO [#A] amershi2015modeltracker :paper:test:viz:
+Found on Kastner's annotated bibliography. Related work presents a
+nice overview of visualisation techniques used when testing systems
+with ML components.
+
++ problem statement ::
++ solution ::
++ results ::
++ limitations ::
++ remarks ::
+
+#+begin_src bibtex
+  @inproceedings{amershi2015modeltracker,
+    title =	 {Modeltracker: Redesigning performance analysis tools
+		    for machine learning},
+    author =	 {Amershi, Saleema and Chickering, Max and Drucker,
+		    Steven M and Lee, Bongshin and Simard, Patrice and
+		    Suh, Jina},
+    booktitle =	 {Proceedings of the 33rd Annual ACM Conference on
+		    Human Factors in Computing Systems},
+    pages =	 {337--346},
+    year =	 2015
+  }
+#+end_src
+* bylinskii2017learning :paper:idea:
+:PROPERTIES:
+:ID:       0B330900-2FE4-4F72-9F5B-F5C96CA975F1
+:END:
+This can be an interesting collaboration direction with Bonita Sharif.
+Perhaps some eye-tracking experiment to detect biases in interpretting
+visualizations while testing ML systems? "Visual smells"?
++ problem statement ::
++ solution ::
++ results ::
++ limitations ::
++ remarks ::
+
+#+begin_src bibtex
+  @inproceedings{bylinskii2017learning,
+    title =        {Learning visual importance for graphic designs and
+                    data visualizations},
+    author =       {Bylinskii, Zoya and Kim, Nam Wook and O'Donovan,
+                    Peter and Alsheikh, Sami and Madan, Spandan and
+                    Pfister, Hanspeter and Durand, Fredo and Russell,
+                    Bryan and Hertzmann, Aaron},
+    booktitle =    {Proceedings of the 30th Annual ACM symposium on user
+                    interface software and technology},
+    pages =        {57--69},
+    year =         2017
+  }
+#+end_src
+* [#A] heer2010tour :paper:
+:PROPERTIES:
+:ID:       7B62837F-49F0-428E-BF9E-9AD533417F6F
+:END:
+Luis shared this paper a while back. Foundational paper to what I am
+doing in my PhD.
++ problem statement ::
++ solution ::
++ results ::
++ limitations ::
++ remarks ::
+
+#+begin_src bibtex
+  @Article{         heer2010tour,
+    title         = {A Tour through the Visualization Zoo: A survey of powerful
+		    visualization techniques, from the obvious to the obscure},
+    volume        = {8},
+    issn          = {1542-7749},
+    url           = {http://dx.doi.org/10.1145/1794514.1805128},
+    doi           = {10.1145/1794514.1805128},
+    number        = {5},
+    journal       = {Queue},
+    publisher     = {Association for Computing Machinery (ACM)},
+    author        = {Heer, Jeffrey and Bostock, Michael and Ogievetsky, Vadim},
+    year          = {2010},
+    month         = may,
+    pages         = {20‚Äì30}
+  }
+#+end_src
+* TODO biswas2022art :ops:design:
+:PROPERTIES:
+:CUSTOM_ID: biswas2022art
+:ARCHIVE_TIME: 2023-02-27 Mon 15:11
+:ARCHIVE_FILE: ~/org/phd.org
+:ARCHIVE_OLPATH: Papers
+:ARCHIVE_CATEGORY: phd
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: paper
+:END:
+:LOGBOOK:
+- State "DONE"       from              [2022-09-19 Mon 14:25]
+:END:
+
++ problem statement :: Data science software is often organised as a
+  set of pipelines since they are often required to be executing in a
+  specific order (directed acyclic graphs or DAGs). However, we do not
+  understand the design principles involved for data science software.
++ solution :: Authors perform a qualitative analysis of publich data
+  science pipelines. Specifically, authors study 71 data science
+  papers from literature (theory), 105 pipelines from Kaggle (small)
+  and 21 pipelines from open source projects on Github (large).
++ results :: Authors provide formal terminology for data science
+  pipelines.
+
+  Authors discover several differences between the different pipelines
+  studied. Several stages tend to be absent in small pipelines & tend
+  to be linearly organised. The emphasis tends to be on the data
+  exploration stages. Large pipelines tend to have several sub
+  pipelines & feedback loops. Pipelines tend to differ based on the
+  software stage (pre vs. post deployment).
++ limitations ::
++ remarks :: Paper goes into the design side of data science software,
+  although first author has already contributed to fairness testing in
+  ML.
+
+  I like that the author is capitalising on Kaggle as source of data
+  for their empirical studies.
+
+#+begin_src bibtex
+  @inproceedings{biswas2022art,
+    title =	 {The Art and Practice of Data Science Pipelines: A
+		    Comprehensive Study of Data Science Pipelines In
+		    Theory, In-The-Small, and In-The-Large},
+    author =	 {Biswas, Sumon and Wardat, Mohammad and Rajan,
+		    Hridesh},
+    booktitle =	 {2022 IEEE/ACM 44th International Conference on
+		    Software Engineering (ICSE)},
+    pages =	 {2091--2103},
+    year =	 2022,
+    organization = {IEEE}
+  }
+#+end_src
+
+* TODO yin2022natural :paper:
+Recommendation from Ali, the paper proposes code auto-completion for
+data science notebooks from natural language prompts using LLMs.
+
+#+begin_src bibtex
+  @article{yin2022natural,
+    Title={Natural Language to Code Generation in Interactive Data Science Notebooks},
+    author={Yin, Pengcheng and Li, Wen-Ding and Xiao, Kefan and Rao, Abhishek and Wen, Yeming and Shi, Kensen and Howland, Joshua and Bailey, Paige and Catasta, Michele and Michalewski, Henryk and others},
+    journal={arXiv preprint arXiv:2212.09248},
+    year={2022}
+  }
+#+end_src
+
+* TODO yu2018user :paper:
+Recommentation from Luis, focuses on deep learning visualisations but
+could be interesting to look at.
+
+#+begin_src bibtex
+  @article{yu2018user,
+    title={A user-based taxonomy for deep learning visualization},
+    author={Yu, Rulei and Shi, Lei},
+    journal={Visual Informatics},
+    volume={2},
+    number={3},
+    pages={147--154},
+    year={2018},
+    publisher={Elsevier}
+  }
+#+end_src
+
+* DONE wang2020better :test:viz:paper:
+:PROPERTIES:
+:PDF: file:~/Documents/papers/wang2020better.pdf
+:CUSTOM_ID: wang2020better
+:AUTHOR: Wang, Jiawei and Li, Li and Zeller, Andreas
+:SOURCE: Proceedings of the ACM/IEEE 42nd International Conference on Software Engineering: New Ideas and Emerging Results
+:YEAR: 2020
+:PASS:     1
+:ID:       A538ED45-C363-4A9E-BBA4-9710562795FF
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2023-03-06 Mon 10:23]
+:END:
+
++ problem statement :: Notebooks are becoming widely adopted as the
+  next tool for programming/research. However, there is no control
+  over the quality of the notebooks since researchers are experts in
+  their respective field, but not in SE.
+
+  Due to their popularity, lack of best practices and poor style of
+  writing code can be passed on to the future generation of
+  programmers which will negatively affect the quality of software in
+  the years to come.
++ solution :: Authors propose to conduct a large scale survey on the
+  reproducibility of notebooks. They use Jupyter's repository of
+  "interesting notebooks" to collect the notebooks.
++ results ::
++ limitations ::
++ remarks :: NAIR paper; they did not provide any replication package.
+
+  Also an interesting source to collect notebooks; although I am not
+  sure how ML focused they will be.
+
+#+begin_src bibtex
+  @inproceedings{wang2020better,
+    title =        {Better code, better sharing: on the need of
+                    analyzing jupyter notebooks},
+    author =       {Wang, Jiawei and Li, Li and Zeller, Andreas},
+    booktitle =    {Proceedings of the ACM/IEEE 42nd International
+                    Conference on Software Engineering: New Ideas and
+                    Emerging Results},
+    pages =        {53--56},
+    year =         2020
+  }
+#+end_src
+* DONE pimentel2019large :viz:paper:
+:PROPERTIES:
+:PDF: file:~/Documents/papers/pimentel2019large.pdf
+:CUSTOM_ID: pimentel2019large
+:AUTHOR: Pimentel, Jo{\~a}o Felipe and Murta, Leonardo and Braganholo, Vanessa and Freire, Juliana
+:SOURCE: 2019 IEEE/ACM 16th international conference on mining software repositories (MSR)
+:YEAR: 2019
+:PASS:     1
+:ID:       B80BCF7C-4BF3-4D3C-900A-FE42624F084B
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2023-03-06 Mon 10:28]
+:END:
+
+Can come in handy to define quality metrics for jupyter notebooks that
+we include in our study.
+
+The [[https://zenodo.org/record/2592524][replication package is available on zenodo]]. This is the version
+that was linked to this paper, however there is a newer version with a
+new cli tool which the authors cite in a new paper (I assume they
+built on top of this dataset).
+
++ problem statement ::
++ solution ::
++ results ::
++ limitations ::
++ remarks :: I did not read the paper in detail but it does provide a
+  dataset of notebooks collected from Github. We can consider
+  including this into our work at some point.
+
+#+begin_src bibtex
+  @inproceedings{pimentel2019large,
+    title =        {A large-scale study about quality and
+                    reproducibility of jupyter notebooks},
+    author =       {Pimentel, Jo{\~a}o Felipe and Murta, Leonardo and
+                    Braganholo, Vanessa and Freire, Juliana},
+    booktitle =    {2019 IEEE/ACM 16th international conference on
+                    mining software repositories (MSR)},
+    pages =        {507--517},
+    year =         2019,
+    organization = {IEEE}
+  }
+#+end_src
+* DONE quaranta2021kgtorrent :viz:paper:
+:PROPERTIES:
+:PDF: file:~/Documents/papers/quaranta2021kgtorrent.pdf
+:CUSTOM_ID: quaranta2021kgtorrent
+:AUTHOR: Quaranta, Luigi and Calefato, Fabio and Lanubile, Filippo
+:SOURCE: 2021 IEEE/ACM 18th International Conference on Mining Software Repositories (MSR)
+:YEAR: 2021
+:PASS:     1
+:ID:       98243DB7-068B-4597-919E-FFD75E893D9C
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2023-03-06 Mon 10:29]
+:END:
+
+Paper presents a dataset of jupyter notebooks. Relevant to the next
+project we are working on.
+
+The [[https://zenodo.org/record/4468523][replication package is available on zenodo]].
+
++ problem statement ::
++ solution ::
++ results ::
++ limitations ::
++ remarks :: The notebooks are collected from Kaggle, the intuition
+  here is that these notebooks are likely more ML oriented and thus
+  more relevant for us.
+
+#+begin_src bibtex
+  @InProceedings{   quaranta2021kgtorrent,
+    title         = {KGTorrent: A Dataset of Python Jupyter Notebooks from
+		    Kaggle},
+    url           = {http://dx.doi.org/10.1109/MSR52588.2021.00072},
+    doi           = {10.1109/msr52588.2021.00072},
+    booktitle     = {2021 IEEE/ACM 18th International Conference on Mining
+		    Software Repositories (MSR)},
+    publisher     = {IEEE},
+    author        = {Quaranta, Luigi and Calefato, Fabio and Lanubile,
+		    Filippo},
+    year          = {2021},
+    month         = may
+  }
+#+end_src
+* TODO bavishi2021vizsmith :viz:paper:
+  :PROPERTIES:
+  :PDF: file:~/Documents/papers/bavishi2021vizsmith.pdf
+  :FIRST_AUTHOR: Bavishi, Rohan
+  :LAST_AUTHOR: Sen, Koushik
+  :SOURCE: 2021 36th IEEE/ACM International Conference on Automated Software Engineering (ASE)
+  :YEAR: 2021
+  :JOURNAL:  4.96
+  :PASS:     1
+  :END:
+:LOGBOOK:
+- State "DONE"       from              [2022-03-12 Sat 22:22]
+:END:
+
++ Problem Statement :: State-of-the-art visualisation tools (like
+  matplotlib) are difficult to learn for novice data scientists and
+  rarely contain enough examples of code. This lead to the rise in
+  popularity of stack overflow and github where snippets of code can
+  be shared. However, this is a large quantity of noise which prevents
+  practitioners to pick the right examples to consult for their given
+  problem. Furthermore, it is also difficult for them to modify the
+  example and adapt it to solve their problem.
+
++ Solution :: Authors present *VizSmith*, a automatic data
+  visualisation framework which accepts data in the form of pandas
+  dataframe along with a list of columns the user wishes to visualise.
+  With this input, VizSmith automatically produces visualisations for
+  the specified columns.
+
+  To do so, authors mine Jupyter notebooks from Kaggle.
++ Results :: Authors claim to be the first to define reusiblity of
+  code in the context of visulisation.
+
+  They claim to use a novel metamorphic testing approach to validate
+  their solution.
++ Limitations ::
++ Remarks :: I did not read the paper in detail, but browsing the
+  section headers, the authors touch upon the preliminary questions
+  I had.
+
+  Relevant paper for the ML documentation side project.
+
+#+begin_src bibtex
+  @InProceedings{   bavishi2021vizsmith,
+    title         = {VizSmith: Automated Visualization Synthesis by Mining
+		    Data-Science Notebooks},
+    url           = {http://dx.doi.org/10.1109/ASE51524.2021.9678696},
+    doi           = {10.1109/ase51524.2021.9678696},
+    booktitle     = {2021 36th IEEE/ACM International Conference on Automated
+		    Software Engineering (ASE)},
+    publisher     = {IEEE},
+    author        = {Bavishi, Rohan and Laddad, Shadaj and Yoshida, Hiroaki and
+		    Prasad, Mukul R. and Sen, Koushik},
+    year          = {2021},
+    month         = nov
+  }
+#+end_src
+* TODO mei2018design :paper:
+Recommendation from Luis, more on the information visualisation side
+of things. But this may come in handy to determine our IC/EC for the
+taxonomy.
+
+#+begin_src bibtex
+  @article{mei2018design,
+    title =        {The design space of construction tools for
+                    information visualization: A survey},
+    author =       {Mei, Honghui and Ma, Yuxin and Wei, Yating and Chen,
+                    Wei},
+    journal =      {Journal of Visual Languages \& Computing},
+    volume =       44,
+    pages =        {120--132},
+    year =         2018,
+    publisher =    {Elsevier}
+  }
+#+end_src
+
+* TODO yang2021subtle :paper:
+
++ Problem Statement :: Data science code is rarely tested and details
+  regarding their behaviour is often embedded in comments or markdown
+  cells in notebooks.
+
+  In their analysis, authors found subtle bugs in data science code
+  that are not apparent right away (they do not cause any crashes in
+  the program right away) but they cause issues in downstream stages.
+
++ Solution :: Authors propose a tool that automatically generates a
+  summary for a given data science code snippet & reports the impact
+  of running such code for a given input dataset.
+
++ Results :: Authors evaluate their tool using two studies: 1. By
+  conducting an analysis of Kaggle notebooks to understand the
+  requirements for documentation summary generation and 2. A user
+  study to validate if their tool reduces human effort.
+
++ Limitations ::
+
++ Remarks :: An intiguing paper, not really for my line of work but a
+  good starting point for the ML documentation project.
+
+  Several buzz words thrown in the paper, need to have this background
+  knowledge to understand the real contribution here.
+
+#+begin_src bibtex
+  @inproceedings{yang2021subtle,
+    title =        {Subtle bugs everywhere: Generating documentation for
+                    data wrangling code},
+    author =       {Yang, Chenyang and Zhou, Shurui and Guo, Jin LC and
+                    K{\"a}stner, Christian},
+    booktitle =    {2021 36th IEEE/ACM International Conference on
+                    Automated Software Engineering (ASE)},
+    pages =        {304--316},
+    year =         2021,
+    organization = {IEEE}
+  }
+#+end_src
